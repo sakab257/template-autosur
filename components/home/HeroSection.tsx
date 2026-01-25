@@ -47,7 +47,7 @@ export default function HeroSection() {
 
               <Link
                 href="/rdv"
-                className="group flex items-center justify-center gap-2 bg-red-600 text-white border-2 border-red-600 font-extrabold text-lg px-8 py-4 rounded-xl shadow-sm hover:bg-white hover:border-red-600 hover:text-red-600 hover:shadow-md transition-all duration-300"
+                className="group flex items-center justify-center gap-2 bg-red-600 text-white border-2 border-red-600 font-extrabold text-lg px-8 py-4 rounded-xl shadow-sm hover:bg-white hover:border-red-600 hover:text-red-600 hover:shadow-md active:scale-95 transition-all duration-300"
               >
                 PRENDRE RDV
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -55,7 +55,7 @@ export default function HeroSection() {
 
               <Link
                 href="#tarifs"
-                className="flex items-center justify-center gap-2 bg-white text-slate-600 border-2 border-slate-100 font-bold text-lg px-8 py-4 rounded-xl shadow-sm hover:border-blue-900 hover:text-blue-900 hover:shadow-md transition-all duration-300"
+                className="flex items-center justify-center gap-2 bg-white text-slate-600 border-2 border-slate-100 font-bold text-lg px-8 py-4 rounded-xl shadow-sm hover:border-blue-900 hover:text-blue-900 hover:shadow-md active:scale-95 transition-all duration-300"
               >
                 Voir les tarifs
               </Link>

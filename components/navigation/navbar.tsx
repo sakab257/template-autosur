@@ -17,10 +17,25 @@ const Navbar = () => {
     const pathname = usePathname();
 
     // Fonction utilitaire pour gérer les ancres
-    const handleLinkClick = (href: string) => {
+    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         setIsOpen(false);
-        // Si on n'est pas sur l'accueil et que c'est une ancre (#), NextJS gère la redirection via <Link>
-        // Mais on peut forcer la fermeture du menu ici.
+
+        // Si c'est un lien d'ancre (commence par #)
+        if (href.startsWith("#")) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: "smooth" });
+
+                // Nettoyer l'URL après le scroll (optionnel)
+                // On attend un peu que le scroll commence avant de nettoyer
+                setTimeout(() => {
+                    window.history.replaceState(null, "", window.location.pathname);
+                }, 100);
+            }
+        }
     };
 
     // --- ANIMATIONS (Inchangées) ---
@@ -53,7 +68,7 @@ const Navbar = () => {
         <>
             {/* MOBILE HEADER */}
             <div className='fixed top-0 left-0 w-full h-20 bg-white flex items-center justify-between px-6 lg:hidden z-50 border-b border-gray-100 shadow-lg'>
-                <Link href={pathname === "/" ? "#hero" : "/#hero"} onClick={() => setIsOpen(false)}>
+                <Link href={pathname === "/" ? "#hero" : "/#hero"} onClick={(e) => handleLinkClick(e, "#hero")}>
                     <Image src={'/autosur_logo_color.webp'} alt="Logo Autosur" width={130} height={50} className="object-contain" />
                 </Link>
                 
@@ -75,7 +90,7 @@ const Navbar = () => {
                             </Link>
                         </motion.div>
 
-                        <div className="flex flex-col gap-4 w-full flex-1">
+                        <div className="flex flex-col gap-4 w-full">
                             {links.map((link) => {
                                 // LOGIQUE INTELLIGENTE MOBILE
                                 // Si lien est une ancre (#...) et qu'on n'est pas sur '/', on ajoute '/' devant.
@@ -85,10 +100,10 @@ const Navbar = () => {
 
                                 return (
                                     <motion.div key={link.name} variants={itemVars} className="w-full border-b border-gray-100 pb-2">
-                                        <Link 
+                                        <Link
                                             href={activeHref}
                                             className="flex items-center justify-between text-2xl font-bold text-slate-800 uppercase tracking-tight group"
-                                            onClick={() => handleLinkClick(link.href)}
+                                            onClick={(e) => handleLinkClick(e, link.href)}
                                         >
                                             <span className="group-hover:text-blue-700 transition-colors">{link.name}</span>
                                             <ChevronRight className="text-blue-700 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
@@ -99,7 +114,7 @@ const Navbar = () => {
                         </div>
 
                         {/* Liens secondaires... (inchangé) */}
-                        <div className="mt-auto pt-8 flex flex-col gap-3">
+                        <div className="mt-8 flex flex-col gap-3">
                              <div className="w-12 h-1 bg-red-500 mb-2"></div>
                                 {secondaryLinks.map((link) => (
                                 <motion.div key={link.name} variants={itemVars}>
@@ -117,7 +132,7 @@ const Navbar = () => {
             {/* DESKTOP HEADER */}
             <div className='hidden lg:flex fixed top-0 left-0 w-full h-24 bg-white z-50 shadow-md items-center justify-between px-8 xl:px-16 transition-all'>
                 <div className="shrink-0">
-                    <Link href={pathname === "/" ? "#hero" : "/#hero"}>
+                    <Link href={pathname === "/" ? "#hero" : "/#hero"} onClick={(e) => handleLinkClick(e, "#hero")}>
                         <Image src={'/autosur_logo_color.webp'} alt="Logo Autosur" width={180} height={60} className="object-contain hover:opacity-90 transition-opacity" />
                     </Link>
                 </div>
@@ -130,10 +145,11 @@ const Navbar = () => {
                             : link.href;
 
                         return (
-                            <Link 
+                            <Link
                                 key={link.name}
                                 href={activeHref}
                                 className="text-blue-800 font-bold uppercase tracking-tight hover:text-red-600 transition-colors relative group py-2"
+                                onClick={(e) => handleLinkClick(e, link.href)}
                             >
                                 {link.name}
                                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
