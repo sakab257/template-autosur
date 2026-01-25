@@ -15,7 +15,7 @@ const HeroAnimation = () => {
     const [animationData, setAnimationData] = useState(null);
 
     useEffect(() => {
-        fetch('/animations/voiture-autosur.json')
+        fetch('/animations/voiture-autosur-bleu.json')
         .then((res) => res.json())
         .then((data) => setAnimationData(data))
         .catch((err) => console.error("Erreur chargement animation:", err));
@@ -27,7 +27,7 @@ const HeroAnimation = () => {
         // On met une hauteur minimale (min-h-[300px]) pour réserver l'espace
         // et éviter que le site ne "saute" quand l'animation arrive.
         <div className="w-full h-full min-h-75 flex items-center justify-center bg-transparent rounded-2xl animate-pulse">
-            <Loader2 className="w-10 h-10 text-red-600 animate-spin" />
+            <Loader2 className="w-10 h-10 text-blue-600 animate-spin" />
         </div>
         );
     }

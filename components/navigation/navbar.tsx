@@ -53,7 +53,7 @@ const Navbar = () => {
         <>
             {/* MOBILE HEADER */}
             <div className='fixed top-0 left-0 w-full h-20 bg-white flex items-center justify-between px-6 lg:hidden z-50 border-b border-gray-100 shadow-lg'>
-                <Link href={'/'} onClick={() => setIsOpen(false)}>
+                <Link href={pathname === "/" ? "#hero" : "/#hero"} onClick={() => setIsOpen(false)}>
                     <Image src={'/autosur_logo_color.webp'} alt="Logo Autosur" width={130} height={50} className="object-contain" />
                 </Link>
                 
@@ -117,7 +117,7 @@ const Navbar = () => {
             {/* DESKTOP HEADER */}
             <div className='hidden lg:flex fixed top-0 left-0 w-full h-24 bg-white z-50 shadow-md items-center justify-between px-8 xl:px-16 transition-all'>
                 <div className="shrink-0">
-                    <Link href={'/'}>
+                    <Link href={pathname === "/" ? "#hero" : "/#hero"}>
                         <Image src={'/autosur_logo_color.webp'} alt="Logo Autosur" width={180} height={60} className="object-contain hover:opacity-90 transition-opacity" />
                     </Link>
                 </div>
@@ -168,9 +168,11 @@ const Navbar = () => {
                 </div>
 
                 <div className="shrink-0">
-                    <Link href="/rdv" className="flex items-center gap-2 bg-red-600 text-white font-extrabold text-sm px-6 py-3 rounded hover:bg-red-700 hover:scale-105 transition-all shadow-md">
-                        <CalendarCheck size={20} strokeWidth={2.5} />
-                        PRENDRE RDV
+                    <Link href="/rdv" className="group flex items-center gap-2 bg-red-600 text-white font-extrabold text-sm px-6 py-3 rounded -skew-x-12 hover:skew-0 hover:bg-red-700 hover:scale-105 transition-all shadow-md">
+                        <span className="skew-x-12 group-hover:skew-x-0 flex items-center gap-2 transition-transform">
+                            <CalendarCheck size={20} strokeWidth={2.5} />
+                            PRENDRE RDV
+                        </span>
                     </Link>
                 </div>
             </div>
