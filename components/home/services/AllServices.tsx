@@ -34,14 +34,49 @@ const AllServices = () => {
             </svg>
         </div>
 
-        <div className='w-full bg-blue-200 py-20 px-6 lg:px-16'>
+        {/* Pattern de points avec double fondu (Haut et Bas) */}
+<div className="absolute inset-0 opacity-20">
+    <svg width="100%" height="100%">
+        <defs>
+            {/* 1. Le pattern de points (inchangé) */}
+            <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="2" fill="white" />
+            </pattern>
+
+            {/* 2. Le dégradé "Sandwich" : Transparent -> Visible -> Transparent */}
+            <linearGradient id="fade-both-ways" x1="0%" y1="0%" x2="0%" y2="100%">
+                {/* 0% (Tout en haut) : Invisible */}
+                <stop offset="0%" stopColor="black" />
+                
+                {/* 15% : Le fondu d'entrée est terminé, les points sont visibles */}
+                <stop offset="15%" stopColor="white" />
+                
+                {/* 85% : Les points sont toujours visibles, le fondu de sortie commence */}
+                <stop offset="85%" stopColor="white" />
+                
+                {/* 100% (Tout en bas) : Invisible */}
+                <stop offset="100%" stopColor="black" />
+            </linearGradient>
+
+            {/* 3. Le masque qui applique ce dégradé */}
+            <mask id="dual-mask" maskContentUnits="objectBoundingBox">
+                <rect x="0" y="0" width="1" height="1" fill="url(#fade-both-ways)" />
+            </mask>
+        </defs>
+
+        {/* 4. Application du masque */}
+        <rect width="100%" height="100%" fill="url(#dot-pattern)" mask="url(#dual-mask)" />
+    </svg>
+</div>
+
+        <div className='w-full bg-blue-500 py-20 px-6 lg:px-16'>
             {/* En-tête de section */}
             <div className="max-w-4xl mx-auto text-center my-16">
-                <h2 className="text-3xl lg:text-4xl font-extrabold text-blue-900 mb-6">
-                    Découvrez nos services de contrôles techniques pour voitures et motos
+                <h2 className="text-3xl lg:text-4xl font-extrabold text-white mb-6">
+                    Découvrez nos services de <strong>contrôles techniques</strong> pour voitures et motos.
                 </h2>
-                <p className="text-lg text-slate-700 leading-relaxed">
-                    Notre équipe d'experts qualifiés assure des contrôles rigoureux et précis pour garantir la sécurité et la conformité de votre véhicule !
+                <p className="text-lg text-gray-100 leading-relaxed">
+                    Notre équipe d'experts qualifiés assure des contrôles rigoureux et précis pour garantir la <strong>sécurité</strong> et la <strong>conformité</strong> de votre véhicule !
                 </p>
             </div>
 
@@ -57,7 +92,7 @@ const AllServices = () => {
                             {/* Conteneur de l'icône */}
                             <div className="shrink-0 flex items-center">
                                 <div className="w-20 h-20 bg-blue-200 rounded-xl flex items-center justify-center transition-all duration-300">
-                                    <Icon className="w-10 h-10 text-blue-900 group-hover:text-blue-700 transition-colors duration-300" strokeWidth={2.5} />
+                                    <Icon className="w-10 h-10 text-black group-hover:text-blue-700 transition-colors duration-300" strokeWidth={2.5} />
                                 </div>
                             </div>
 
