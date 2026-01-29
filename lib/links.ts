@@ -2,9 +2,9 @@ import { Calendar, Car, Euro, MessageSquare, Info, MapPin, Briefcase, FileText }
 
 // Les liens principaux visibles directement sur Desktop
 export const links = [
-    { name: "Services", href: "#services", icon: Car },
-    { name: "Tarifs", href: "#tarifs", icon: Euro },
-    { name: "Avis Clients", href: "#avis", icon: MessageSquare },
+    { name: "Services", href: "/#services", icon: Car },
+    { name: "Tarifs", href: "/#tarifs", icon: Euro },
+    { name: "Avis Clients", href: "/#avis", icon: MessageSquare },
 ];
 
 // Les liens cachés dans le menu "Plus" ou "Infos"

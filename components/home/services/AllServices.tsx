@@ -35,39 +35,39 @@ const AllServices = () => {
         </div>
 
         {/* Pattern de points avec double fondu (Haut et Bas) */}
-<div className="absolute inset-0 opacity-20">
-    <svg width="100%" height="100%">
-        <defs>
-            {/* 1. Le pattern de points (inchangé) */}
-            <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                <circle cx="2" cy="2" r="2" fill="white" />
-            </pattern>
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+            <svg width="100%" height="100%">
+                <defs>
+                    {/* 1. Le pattern de points (inchangé) */}
+                    <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                        <circle cx="2" cy="2" r="2" fill="white" />
+                    </pattern>
 
-            {/* 2. Le dégradé "Sandwich" : Transparent -> Visible -> Transparent */}
-            <linearGradient id="fade-both-ways" x1="0%" y1="0%" x2="0%" y2="100%">
-                {/* 0% (Tout en haut) : Invisible */}
-                <stop offset="0%" stopColor="black" />
-                
-                {/* 15% : Le fondu d'entrée est terminé, les points sont visibles */}
-                <stop offset="15%" stopColor="white" />
-                
-                {/* 85% : Les points sont toujours visibles, le fondu de sortie commence */}
-                <stop offset="85%" stopColor="white" />
-                
-                {/* 100% (Tout en bas) : Invisible */}
-                <stop offset="100%" stopColor="black" />
-            </linearGradient>
+                    {/* 2. Le dégradé "Sandwich" : Transparent -> Visible -> Transparent */}
+                    <linearGradient id="fade-both-ways" x1="0%" y1="0%" x2="0%" y2="100%">
+                        {/* 0% (Tout en haut) : Invisible */}
+                        <stop offset="0%" stopColor="black" />
+                        
+                        {/* 15% : Le fondu d'entrée est terminé, les points sont visibles */}
+                        <stop offset="15%" stopColor="white" />
+                        
+                        {/* 85% : Les points sont toujours visibles, le fondu de sortie commence */}
+                        <stop offset="85%" stopColor="white" />
+                        
+                        {/* 100% (Tout en bas) : Invisible */}
+                        <stop offset="100%" stopColor="black" />
+                    </linearGradient>
 
-            {/* 3. Le masque qui applique ce dégradé */}
-            <mask id="dual-mask" maskContentUnits="objectBoundingBox">
-                <rect x="0" y="0" width="1" height="1" fill="url(#fade-both-ways)" />
-            </mask>
-        </defs>
+                    {/* 3. Le masque qui applique ce dégradé */}
+                    <mask id="dual-mask" maskContentUnits="objectBoundingBox">
+                        <rect x="0" y="0" width="1" height="1" fill="url(#fade-both-ways)" />
+                    </mask>
+                </defs>
 
-        {/* 4. Application du masque */}
-        <rect width="100%" height="100%" fill="url(#dot-pattern)" mask="url(#dual-mask)" />
-    </svg>
-</div>
+                {/* 4. Application du masque */}
+                <rect width="100%" height="100%" fill="url(#dot-pattern)" mask="url(#dual-mask)" />
+            </svg>
+        </div>
 
         <div className='w-full bg-blue-500 py-20 px-6 lg:px-16'>
             {/* En-tête de section */}

@@ -11,7 +11,7 @@ export default function AvisSection() {
         ></path>
       </svg>
       {/* Pattern de points en arrière-plan avec fondu */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
           <svg width="100%" height="100%">
               <defs>
                   {/* 1. Votre pattern de points existant (inchangé) */}
