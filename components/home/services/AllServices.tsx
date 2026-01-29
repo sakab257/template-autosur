@@ -1,4 +1,7 @@
+'use client'
+
 import { Car, Truck, Motorbike, Leaf } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const services = [
     {
@@ -23,48 +26,58 @@ const services = [
     }
 ]
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15,
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: {
+        opacity: 0,
+        y: 30,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.6, // Légèrement ralenti pour plus de fluidité
+            ease: "easeOut" as const
+        }
+    }
+}
+
 const AllServices = () => {
   return (
     <div className='relative w-full mt-12 overflow-hidden'>
         {/* --- VAGUE DE SÉPARATION (CSS PURE) --- */}
-        {/* Forme ondulée en haut pour la transition douce */}
         <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-10">
             <svg className="relative block w-[calc(100%+1.3px)] h-20 lg:h-25" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="fill-white"></path>
             </svg>
         </div>
 
-        {/* Pattern de points avec double fondu (Haut et Bas) */}
+        {/* Pattern de points */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
             <svg width="100%" height="100%">
                 <defs>
-                    {/* 1. Le pattern de points (inchangé) */}
                     <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
                         <circle cx="2" cy="2" r="2" fill="white" />
                     </pattern>
-
-                    {/* 2. Le dégradé "Sandwich" : Transparent -> Visible -> Transparent */}
                     <linearGradient id="fade-both-ways" x1="0%" y1="0%" x2="0%" y2="100%">
-                        {/* 0% (Tout en haut) : Invisible */}
                         <stop offset="0%" stopColor="black" />
-                        
-                        {/* 15% : Le fondu d'entrée est terminé, les points sont visibles */}
                         <stop offset="15%" stopColor="white" />
-                        
-                        {/* 85% : Les points sont toujours visibles, le fondu de sortie commence */}
                         <stop offset="85%" stopColor="white" />
-                        
-                        {/* 100% (Tout en bas) : Invisible */}
                         <stop offset="100%" stopColor="black" />
                     </linearGradient>
-
-                    {/* 3. Le masque qui applique ce dégradé */}
                     <mask id="dual-mask" maskContentUnits="objectBoundingBox">
                         <rect x="0" y="0" width="1" height="1" fill="url(#fade-both-ways)" />
                     </mask>
                 </defs>
-
-                {/* 4. Application du masque */}
                 <rect width="100%" height="100%" fill="url(#dot-pattern)" mask="url(#dual-mask)" />
             </svg>
         </div>
@@ -81,37 +94,46 @@ const AllServices = () => {
             </div>
 
             {/* Grille de services */}
-            <div className="max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <motion.div
+                className="max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+            >
                 {services.map((service, index) => {
                     const Icon = service.icon
                     return (
-                        <div
+                        <motion.div
                             key={index}
-                            className="flex gap-6 group bg-blue-50 rounded-xl p-4 shadow-md hover:shadow-xl hover:scale-102 transition-all duration-300"
+                            variants={itemVariants}
+                            // CORRECTION MAJEURE ICI :
+                            // 1. Suppression de 'transition-all' (la cause du bug)
+                            // 2. Suppression de 'hover:scale-102' (géré par Framer maintenant)
+                            // 3. Ajout de transition-colors et transition-shadow pour garder l'effet visuel sur le reste
+                            className="flex gap-6 group bg-blue-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-colors duration-300"
+                            
+                            // On gère le scale avec Framer pour éviter le conflit CSS
+                            whileHover={{ scale: 1.02 }}
                         >
-                            {/* Conteneur de l'icône */}
                             <div className="shrink-0 flex items-center">
                                 <div className="w-20 h-20 bg-blue-200 rounded-xl flex items-center justify-center transition-all duration-300">
                                     <Icon className="w-10 h-10 text-black group-hover:text-blue-700 transition-colors duration-300" strokeWidth={2.5} />
                                 </div>
                             </div>
 
-                            {/* Contenu */}
                             <div className="flex-1 flex flex-col justify-around">
-                                {/* Titre */}
                                 <h3 className="text-xl font-bold text-black group-hover:text-blue-700 transition-colors duration-300">
                                     {service.title}
                                 </h3>
-
-                                {/* Description */}
                                 <p className="text-sm text-slate-700 group-hover:text-blue-700 transition-colors duration-300 leading-relaxed">
                                     {service.description}
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
                     )
                 })}
-            </div>
+            </motion.div>
         </div>
     </div>
   )

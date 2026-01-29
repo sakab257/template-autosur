@@ -1,4 +1,7 @@
+'use client'
+
 import { Star } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const avis = [
     {
@@ -39,6 +42,32 @@ const avis = [
     },
 ]
 
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.1,
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: {
+        opacity: 0,
+        y: 40,
+        scale: 0.95,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.5,
+            ease: "easeOut" as const
+        }
+    }
+}
+
 function getInitiales(nom: string): string {
     return nom
         .split(' ')
@@ -62,10 +91,17 @@ function StarRating({ note }: { note: number }) {
 
 export default function AvisCards() {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+        >
             {avis.map((avis, index) => (
-                <div
+                <motion.div
                     key={index}
+                    variants={itemVariants}
                     className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-colors duration-300"
                 >
                     {/* En-tête de la carte : Avatar + Nom + Note + Date */}
@@ -87,8 +123,8 @@ export default function AvisCards() {
                     <p className="text-blue-100 text-sm leading-relaxed">
                         &quot;{avis.texte}&quot;
                     </p>
-                </div>
+                </motion.div>
             ))}
-        </div>
+        </motion.div>
     )
 }
