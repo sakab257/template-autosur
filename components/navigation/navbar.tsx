@@ -20,20 +20,19 @@ const Navbar = () => {
     const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         setIsOpen(false);
 
-        // Si c'est un lien d'ancre (commence par #)
-        if (href.startsWith("#")) {
+        // Extraire l'ancre du href (supporte "#section" et "/#section")
+        const anchorMatch = href.match(/#(.+)$/);
+
+        if (anchorMatch && pathname === "/") {
             e.preventDefault();
-            const targetId = href.substring(1);
+            const targetId = anchorMatch[1];
             const targetElement = document.getElementById(targetId);
+
+            // Nettoyer l'URL immédiatement (enlever toute ancre existante)
+            window.history.replaceState(null, "", "/");
 
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: "smooth" });
-
-                // Nettoyer l'URL après le scroll (optionnel)
-                // On attend un peu que le scroll commence avant de nettoyer
-                setTimeout(() => {
-                    window.history.replaceState(null, "", window.location.pathname);
-                }, 100);
             }
         }
     };
