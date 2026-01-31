@@ -83,7 +83,7 @@ const Navbar = () => {
                 {isOpen && (
                     <motion.div variants={menuVars} initial="initial" animate="animate" exit="exit" className="fixed top-20 left-0 w-full h-[calc(100vh-5rem)] bg-white z-40 flex flex-col px-6 py-8 lg:hidden overflow-y-auto">
                         <motion.div variants={itemVars} className="w-full max-w-150 mb-8 mx-auto">
-                            <Link href="/rdv" onClick={() => setIsOpen(false)} className="group flex items-center justify-center gap-3 w-full bg-red-600 text-white font-extrabold text-lg py-4 rounded-lg shadow-md hover:bg-red-500 transition-all active:scale-[0.98]">
+                            <Link href="/rendez-vous" onClick={() => setIsOpen(false)} className="group flex items-center justify-center gap-3 w-full bg-red-600 text-white font-extrabold text-lg py-4 rounded-lg shadow-md hover:bg-red-500 transition-all active:scale-[0.98]">
                                 <CalendarCheck size={24} strokeWidth={3} />
                                 PRENDRE RENDEZ-VOUS
                             </Link>
@@ -183,7 +183,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="shrink-0">
-                    <Link href="/rdv" className="group flex items-center gap-2 bg-red-600 text-white font-extrabold text-sm px-6 py-3 rounded -skew-x-12 hover:skew-0 hover:bg-red-700 hover:scale-105 transition-all shadow-md">
+                    <Link href="/rendez-vous" className="group flex items-center gap-2 bg-red-600 text-white font-extrabold text-sm px-6 py-3 rounded -skew-x-12 hover:skew-0 hover:bg-red-700 hover:scale-105 transition-all shadow-md">
                         <span className="skew-x-12 group-hover:skew-x-0 flex items-center gap-2 transition-transform">
                             <CalendarCheck size={20} strokeWidth={2.5} />
                             PRENDRE RDV

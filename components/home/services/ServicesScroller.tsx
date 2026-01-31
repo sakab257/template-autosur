@@ -253,8 +253,8 @@ const ServicesScroller = () => {
 
                                     {/* BOUTON D'ACTION (Étape 1 seulement) */}
                                     {step.isAction ? (
-                                        <Link 
-                                            href="/rdv" 
+                                        <Link
+                                            href="/rendez-vous"
                                             className="inline-flex items-center gap-2 bg-red-600 text-white font-bold text-sm sm:text-base px-5 py-3 rounded-xl shadow-lg shadow-red-100 hover:bg-red-700 hover:scale-105 active:scale-95 transition-all"
                                         >
                                             <CalendarCheck size={18} />
@@ -283,8 +283,8 @@ const ServicesScroller = () => {
 
             {/* CTA Mobile Fin de liste */}
             <div className="lg:hidden pl-14 pr-2">
-                 <Link 
-                    href="/rdv" 
+                 <Link
+                    href="/rendez-vous"
                     className="flex w-full items-center justify-center gap-2 bg-red-600 hover:bg-red-700 transition-all text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 hover:scale-105"
                 >
                     <CalendarCheck />

@@ -85,7 +85,7 @@ export default function TarifsCarousel() {
             {/* Carousel */}
             <div
                 ref={scrollRef}
-                className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 px-4 -mx-4 scrollbar-hide"
+                className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-16 px-4 -mx-4 scrollbar-hide"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
                 {tarifs.map((tarif, index) => {

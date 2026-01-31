@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ShieldCheck, ArrowRight, Star } from "lucide-react";
-import HeroAnimation from "@/components/HeroAnimation";
+import HeroAnimation from "@/components/home/HeroAnimation";
 
 export default function HeroSection() {
   return (
@@ -80,7 +80,7 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mx-auto lg:mx-0">
 
               <Link
-                href="/rdv"
+                href="/rendez-vous"
                 className="group flex items-center justify-center gap-2 bg-red-600 text-white border-2 border-red-600 font-extrabold text-lg px-8 py-4 rounded-xl shadow-sm hover:bg-white hover:border-red-600 hover:text-red-600 hover:shadow-md active:scale-95 transition-all duration-300"
               >
                 PRENDRE RDV
