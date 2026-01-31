@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calculator, Calendar, AlertTriangle, CheckCircle, Clock } from "lucide-react";
+import { Calendar, AlertTriangle, CheckCircle, Car, History, Clock } from "lucide-react";
 
 type VehicleType = "neuf" | "occasion";
 
@@ -12,7 +12,7 @@ export default function CTCalculator() {
     const [result, setResult] = useState<{
         nextCT: Date;
         daysRemaining: number;
-        isOverdue: boolean;
+        status: "safe" | "soon" | "overdue";
     } | null>(null);
 
     const calculateNextCT = () => {
@@ -22,35 +22,28 @@ export default function CTCalculator() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        let nextCT: Date;
+        let nextCT: Date = new Date(date);
 
         if (vehicleType === "neuf") {
-            // Premier CT à 4 ans
-            nextCT = new Date(date);
+            // Règle : 4 ans après la 1ère mise en circulation
             nextCT.setFullYear(nextCT.getFullYear() + 4);
-
-            // Si déjà passé, calculer le prochain (tous les 2 ans après)
-            while (nextCT < today) {
-                nextCT.setFullYear(nextCT.getFullYear() + 2);
-            }
         } else {
-            // Véhicule occasion : CT tous les 2 ans depuis le dernier
-            nextCT = new Date(date);
+            // Règle : 2 ans après le dernier contrôle
             nextCT.setFullYear(nextCT.getFullYear() + 2);
-
-            // Si déjà passé, calculer le prochain
-            while (nextCT < today) {
-                nextCT.setFullYear(nextCT.getFullYear() + 2);
-            }
         }
 
         const diffTime = nextCT.getTime() - today.getTime();
         const daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
+        // Définition du statut pour l'affichage (Bleu vs Rouge)
+        let status: "safe" | "soon" | "overdue" = "safe";
+        if (daysRemaining < 0) status = "overdue";
+        else if (daysRemaining <= 60) status = "soon"; // Moins de 2 mois = Urgent (Rouge)
+
         setResult({
             nextCT,
             daysRemaining,
-            isOverdue: daysRemaining < 0,
+            status,
         });
     };
 
@@ -63,174 +56,128 @@ export default function CTCalculator() {
         });
     };
 
-    const getStatusColor = (days: number) => {
-        if (days < 0) return "red";
-        if (days <= 30) return "orange";
-        if (days <= 90) return "yellow";
-        return "green";
-    };
-
     return (
-        <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg border border-slate-100">
-            <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center">
-                    <Calculator className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                    <h2 className="text-2xl font-bold text-slate-900">Calculateur de date</h2>
-                    <p className="text-slate-500 text-sm">Calculez la date de votre prochain CT</p>
-                </div>
-            </div>
+        <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white rounded-3xl p-6 lg:p-8 shadow-2xl shadow-blue-900/20 border border-white/50 relative overflow-hidden"
+        >
+            {/* Décoration d'arrière-plan légère */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full z-0 opacity-50 pointer-events-none"></div>
 
-            {/* Type de véhicule */}
-            <div className="mb-6">
-                <label className="text-sm font-semibold text-slate-700 mb-3 block">
-                    Type de véhicule
-                </label>
-                <div className="grid grid-cols-2 gap-3">
+            <div className="relative z-10">
+                <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <Calendar className="w-5 h-5 text-blue-600" />
+                    Simulateur de date
+                </h3>
+
+                {/* Sélecteur Type de véhicule */}
+                <div className="bg-slate-100 p-1.5 rounded-xl flex mb-6">
                     <button
-                        onClick={() => setVehicleType("neuf")}
-                        className={`p-4 rounded-xl border-2 text-center transition-all ${
+                        onClick={() => { setVehicleType("neuf"); setResult(null); }}
+                        className={`cursor-pointer flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all duration-300 ${
                             vehicleType === "neuf"
-                                ? "border-blue-600 bg-blue-50 text-blue-700"
-                                : "border-slate-200 hover:border-slate-300"
+                                ? "bg-white text-blue-600 shadow-sm"
+                                : "text-slate-500 hover:text-slate-700"
                         }`}
                     >
-                        <span className="font-semibold block">Véhicule neuf</span>
-                        <span className="text-xs text-slate-500">Jamais contrôlé</span>
+                        <Car size={16} />
+                        Véhicule Neuf
                     </button>
                     <button
-                        onClick={() => setVehicleType("occasion")}
-                        className={`p-4 rounded-xl border-2 text-center transition-all ${
+                        onClick={() => { setVehicleType("occasion"); setResult(null); }}
+                        className={`cursor-pointer flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all duration-300 ${
                             vehicleType === "occasion"
-                                ? "border-blue-600 bg-blue-50 text-blue-700"
-                                : "border-slate-200 hover:border-slate-300"
+                                ? "bg-white text-blue-600 shadow-sm"
+                                : "text-slate-500 hover:text-slate-700"
                         }`}
                     >
-                        <span className="font-semibold block">Véhicule occasion</span>
-                        <span className="text-xs text-slate-500">Déjà contrôlé</span>
+                        <History size={16} />
+                        Déjà Contrôlé
                     </button>
                 </div>
-            </div>
 
-            {/* Date input */}
-            <div className="mb-6">
-                <label htmlFor="date" className="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
-                    <Calendar className="w-4 h-4" />
-                    {vehicleType === "neuf"
-                        ? "Date de première mise en circulation"
-                        : "Date du dernier contrôle technique"}
-                </label>
-                <input
-                    type="date"
-                    id="date"
-                    value={inputDate}
-                    onChange={(e) => setInputDate(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                />
-            </div>
+                {/* Input Date */}
+                <div className="mb-6">
+                    <label htmlFor="date" className="block text-sm font-semibold text-slate-700 mb-2">
+                        {vehicleType === "neuf" ? "Date de 1ère mise en circulation" : "Date du dernier contrôle"}
+                    </label>
+                    <input
+                        type="date"
+                        id="date"
+                        value={inputDate}
+                        onChange={(e) => setInputDate(e.target.value)}
+                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all cursor-pointer"
+                    />
+                </div>
 
-            {/* Calculate button */}
-            <button
-                onClick={calculateNextCT}
-                disabled={!inputDate}
-                className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all"
-            >
-                Calculer la date
-            </button>
+                {/* Bouton Calculer */}
+                <button
+                    onClick={calculateNextCT}
+                    disabled={!inputDate}
+                    className="cursor-pointer w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-md hover:scale-[1.02] active:scale-[0.98] disabled:bg-slate-300 disabled:shadow-none disabled:cursor-not-allowed transition-all"
+                >
+                    Calculer ma date limite
+                </button>
 
-            {/* Result */}
-            <AnimatePresence>
-                {result && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className={`mt-6 p-6 rounded-xl ${
-                            getStatusColor(result.daysRemaining) === "red"
-                                ? "bg-red-50 border border-red-200"
-                                : getStatusColor(result.daysRemaining) === "orange"
-                                ? "bg-orange-50 border border-orange-200"
-                                : getStatusColor(result.daysRemaining) === "yellow"
-                                ? "bg-yellow-50 border border-yellow-200"
-                                : "bg-green-50 border border-green-200"
-                        }`}
-                    >
-                        <div className="flex items-start gap-4">
-                            <div
-                                className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                                    getStatusColor(result.daysRemaining) === "red"
-                                        ? "bg-red-100"
-                                        : getStatusColor(result.daysRemaining) === "orange"
-                                        ? "bg-orange-100"
-                                        : getStatusColor(result.daysRemaining) === "yellow"
-                                        ? "bg-yellow-100"
-                                        : "bg-green-100"
-                                }`}
-                            >
-                                {result.daysRemaining < 0 ? (
-                                    <AlertTriangle
-                                        className={`w-6 h-6 ${
-                                            getStatusColor(result.daysRemaining) === "red"
-                                                ? "text-red-600"
-                                                : "text-orange-600"
-                                        }`}
-                                    />
-                                ) : result.daysRemaining <= 90 ? (
-                                    <Clock
-                                        className={`w-6 h-6 ${
-                                            getStatusColor(result.daysRemaining) === "orange"
-                                                ? "text-orange-600"
-                                                : "text-yellow-600"
-                                        }`}
-                                    />
-                                ) : (
-                                    <CheckCircle className="w-6 h-6 text-green-600" />
-                                )}
+                {/* Résultat Animé */}
+                <AnimatePresence mode="wait">
+                    {result && (
+                        <motion.div
+                            key="result"
+                            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                            animate={{ opacity: 1, height: "auto", marginTop: 24 }}
+                            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                            className="overflow-hidden"
+                        >
+                            <div className={`p-5 rounded-lg ${
+                                result.status === "safe" 
+                                    ? "bg-blue-50 border-blue-500" 
+                                    : "bg-red-50 border-red-600"
+                            }`}>
+                                <div className="flex items-start gap-4">
+                                    {/* Icône */}
+                                    <div className={`p-2 rounded-full shrink-0 ${
+                                        result.status === "safe"
+                                            ? "bg-blue-100 text-blue-600"
+                                            : "bg-red-100 text-red-600"
+                                    }`}>
+                                        {result.status === "overdue" ? <AlertTriangle size={24} /> : 
+                                         result.status === "soon" ? <Clock size={24} /> : 
+                                         <CheckCircle size={24} />}
+                                    </div>
+
+                                    {/* Texte */}
+                                    <div>
+                                        <h4 className={`font-bold text-lg leading-tight mb-1 ${
+                                            result.status === "safe" ? "text-blue-900" : "text-red-900"
+                                        }`}>
+                                            {result.status === "overdue" ? "Date limite dépassée !" :
+                                             result.status === "soon" ? "Contrôle imminent !" :
+                                             "Vous êtes tranquille"}
+                                        </h4>
+                                        
+                                        <p className="text-slate-600 text-sm mb-2">
+                                            Date limite : <strong className="text-slate-900">{formatDate(result.nextCT)}</strong>
+                                        </p>
+
+                                        <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${
+                                             result.status === "safe"
+                                                ? "bg-blue-200 text-blue-800"
+                                                : "bg-red-200 text-red-800"
+                                        }`}>
+                                            {result.daysRemaining < 0 
+                                                ? `${Math.abs(result.daysRemaining)} jours de retard` 
+                                                : `${result.daysRemaining} jours restants`}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h3
-                                    className={`font-bold text-lg ${
-                                        getStatusColor(result.daysRemaining) === "red"
-                                            ? "text-red-900"
-                                            : getStatusColor(result.daysRemaining) === "orange"
-                                            ? "text-orange-900"
-                                            : getStatusColor(result.daysRemaining) === "yellow"
-                                            ? "text-yellow-900"
-                                            : "text-green-900"
-                                    }`}
-                                >
-                                    {result.daysRemaining < 0
-                                        ? "Contrôle technique dépassé !"
-                                        : result.daysRemaining <= 30
-                                        ? "Contrôle technique imminent"
-                                        : result.daysRemaining <= 90
-                                        ? "Pensez à prendre rendez-vous"
-                                        : "Vous êtes en règle"}
-                                </h3>
-                                <p className="text-slate-600 mt-1">
-                                    Prochain CT : <strong>{formatDate(result.nextCT)}</strong>
-                                </p>
-                                <p
-                                    className={`text-lg font-bold mt-2 ${
-                                        getStatusColor(result.daysRemaining) === "red"
-                                            ? "text-red-600"
-                                            : getStatusColor(result.daysRemaining) === "orange"
-                                            ? "text-orange-600"
-                                            : getStatusColor(result.daysRemaining) === "yellow"
-                                            ? "text-yellow-600"
-                                            : "text-green-600"
-                                    }`}
-                                >
-                                    {result.daysRemaining < 0
-                                        ? `${Math.abs(result.daysRemaining)} jours de retard`
-                                        : `${result.daysRemaining} jours restants`}
-                                </p>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+        </motion.div>
     );
 }
