@@ -29,8 +29,8 @@ const SeparationWave = ({
     className,
 }: SeparationWaveProps) => {
     const positionClasses = position === 'top'
-        ? 'top-0 left-0'
-        : 'bottom-0 left-0'
+        ? 'top-0 -mt-px left-0'
+        : 'bottom-0 -mb-px left-0'
 
     const containerClasses = [
         'absolute w-full overflow-hidden leading-none z-10',

@@ -16,16 +16,21 @@ export default function ChecklistCard({ title, items, delay = 0 }: ChecklistCard
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100"
+            // CHANGEMENT : Fond Glassmorphism (blanc transparent + flou) + Bordure légère
+            className="bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-xs border border-white/20 hover:bg-white/15 transition-colors duration-300"
         >
-            <h3 className="text-xl font-bold text-slate-900 mb-4">{title}</h3>
+            {/* Titre en Blanc */}
+            <h3 className="text-xl font-bold text-white mb-4">{title}</h3>
+            
             <ul className="space-y-3">
                 {items.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
-                        <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center shrink-0 mt-0.5">
-                            <Check className="w-3 h-3 text-green-600" strokeWidth={3} />
+                        {/* CHANGEMENT : Pastille Blanche avec Check Bleu */}
+                        <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                            <Check className="w-3 h-3 text-blue-600" strokeWidth={3} />
                         </div>
-                        <span className="text-slate-600">{item}</span>
+                        {/* Texte en bleu très clair (presque blanc) pour la lisibilité */}
+                        <span className="text-blue-50 font-medium leading-tight">{item}</span>
                     </li>
                 ))}
             </ul>

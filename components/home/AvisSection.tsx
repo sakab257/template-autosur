@@ -1,5 +1,6 @@
 import AvisCards from './avis/AvisCards'
 import AvisActions from './avis/AvisActions'
+import DotPattern from '@/components/ui/DotPattern'
 
 export default function AvisSection() {
     return (
@@ -15,24 +16,7 @@ export default function AvisSection() {
                 ></path>
             </svg>
 
-            {/* --- PATTERN DE POINTS EN ARRIÈRE-PLAN --- */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
-                <svg width="100%" height="100%">
-                    <defs>
-                        <pattern id="avis-dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                            <circle cx="2" cy="2" r="2" fill="white" />
-                        </pattern>
-                        <linearGradient id="avis-fade-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="black" />
-                            <stop offset="100%" stopColor="white" />
-                        </linearGradient>
-                        <mask id="avis-dot-mask" maskContentUnits="objectBoundingBox">
-                            <rect x="0" y="0" width="1" height="1" fill="url(#avis-fade-gradient)" />
-                        </mask>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#avis-dot-pattern)" mask="url(#avis-dot-mask)" />
-                </svg>
-            </div>
+            <DotPattern />
 
             {/* --- CONTENU --- */}
             <div className="relative container mx-auto px-6 lg:px-16">

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
 import SeparationWave from '@/components/ui/SeparationWave'
+import DotPattern from '@/components/ui/DotPattern'
 
 interface SanctionCard {
     icon: LucideIcon
@@ -73,17 +74,7 @@ const SanctionSection = () => {
   return (
     <section className="relative py-24 lg:py-32 bg-blue-500 overflow-hidden">
 
-        {/* --- PATTERN DE POINTS (Texture) --- */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none lg:translate-y-3">
-            <svg width="100%" height="100%">
-                    <defs>
-                        <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                            <circle cx="2" cy="2" r="2" fill="white" />
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#dot-pattern)" />
-                </svg>
-        </div>
+        <DotPattern className="lg:translate-y-3" />
 
         <SeparationWave position="top" fillColor="fill-white" />
 

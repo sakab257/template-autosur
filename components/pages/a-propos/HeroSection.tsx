@@ -3,32 +3,12 @@
 import { motion } from 'framer-motion';
 import { Info } from 'lucide-react';
 import SeparationWave from '@/components/ui/SeparationWave';
+import DotPattern from '@/components/ui/DotPattern';
 
 const HeroSection = () => {
   return (
     <section className="relative pt-16 pb-48 lg:pt-32 lg:pb-60 overflow-hidden bg-blue-500 text-white">
-        {/* --- BACKGROUND PATTERN --- */}
-        {/* On passe les points en blanc avec une opacité réduite */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-            <svg width="100%" height="100%">
-                <defs>
-                    <pattern id="hero-dot-pattern" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-                        <circle cx="2" cy="2" r="1.5" className="fill-white" />
-                    </pattern>
-                    <linearGradient id="hero-fade" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="white" stopOpacity={0} /> {/* StopColor n'importe peu ici, c'est le mask qui compte, mais gardons la logique */}
-                        <stop offset="50%" stopColor="white" stopOpacity={1} />
-                        <stop offset="100%" stopColor="white" stopOpacity={0} />
-                    </linearGradient>
-                    {/* Masque pour créer l'effet de fondu sur les points */}
-                    <mask id="hero-mask">
-                        <rect width="100%" height="100%" fill="url(#hero-fade)" />
-                    </mask>
-                </defs>
-                {/* Application du pattern avec le masque */}
-                <rect width="100%" height="100%" fill="url(#hero-dot-pattern)" mask="url(#hero-mask)" />
-            </svg>
-        </div>
+        <DotPattern />
 
         <SeparationWave position="bottom" variant="wave2" fillColor="fill-white" height="h-16 lg:h-24" className="z-20" />
 

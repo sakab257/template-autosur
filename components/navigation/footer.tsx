@@ -1,21 +1,12 @@
 import Link from 'next/link'
 import { MapPin, Phone, Mail, Home, BookUser } from 'lucide-react'
 import { secondaryLinks } from '@/lib/links'
+import DotPattern from '@/components/ui/DotPattern'
 
 const Footer = () => {
     return (
         <footer className="relative w-full bg-blue-500 py-16 px-6 lg:px-16 overflow-hidden">
-            {/* Pattern de points en arrière-plan */}
-            <div className="absolute top-4 lg:top-0 inset-0 opacity-20">
-                <svg width="100%" height="100%">
-                    <defs>
-                        <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                            <circle cx="2" cy="2" r="2" fill="white" />
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#dot-pattern)" />
-                </svg>
-            </div>
+            <DotPattern className="top-4 lg:top-0" />
             {/* Card principale */}
             <div className="relative max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-8 lg:p-12 z-10">
                 {/* Grille principale */}

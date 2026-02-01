@@ -3,6 +3,7 @@
 import { Car, Truck, Motorbike, Leaf } from 'lucide-react'
 import { motion } from 'framer-motion'
 import SeparationWave from '@/components/ui/SeparationWave'
+import DotPattern from '@/components/ui/DotPattern'
 
 const services = [
     {
@@ -57,28 +58,9 @@ const AllServices = () => {
     <div className='relative w-full mt-12 overflow-hidden'>
         <SeparationWave position="top" fillColor="fill-white" height="h-20 lg:h-25" />
 
-        {/* Pattern de points */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-            <svg width="100%" height="100%">
-                <defs>
-                    <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                        <circle cx="2" cy="2" r="2" fill="white" />
-                    </pattern>
-                    <linearGradient id="fade-both-ways" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="black" />
-                        <stop offset="15%" stopColor="white" />
-                        <stop offset="85%" stopColor="white" />
-                        <stop offset="100%" stopColor="black" />
-                    </linearGradient>
-                    <mask id="dual-mask" maskContentUnits="objectBoundingBox">
-                        <rect x="0" y="0" width="1" height="1" fill="url(#fade-both-ways)" />
-                    </mask>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#dot-pattern)" mask="url(#dual-mask)" />
-            </svg>
-        </div>
+        <DotPattern />
 
-        <div className='w-full bg-blue-500 py-20 px-6 lg:px-16'>
+        <div className='w-full bg-blue-500 py-32 px-6 lg:px-16'>
             {/* En-tête de section */}
             <div className="max-w-4xl mx-auto text-center my-16">
                 <h2 className="text-3xl lg:text-4xl font-extrabold text-white mb-6">
@@ -131,6 +113,8 @@ const AllServices = () => {
                 })}
             </motion.div>
         </div>
+
+        <SeparationWave position="bottom" fillColor="fill-white" flip />
     </div>
   )
 }

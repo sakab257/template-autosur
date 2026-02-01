@@ -3,28 +3,24 @@ import FAQSection from "@/components/pages/infos-pratiques/FAQSection";
 import Documents from "@/components/pages/infos-pratiques/Documents";
 import ControlProgress from "@/components/pages/infos-pratiques/ControlProgress";
 import ControlPointsSection from "@/components/pages/infos-pratiques/ControlPointsSection";
-import CTASection from "@/components/pages/infos-pratiques/CTASection";
 
 export default function InfosPratiquesPage() {
     return (
         <main className="w-full bg-slate-50">
-            {/* Hero Section */}
+            {/* Hero Section (Bleu) */}
             <HeroSection />
 
-            {/* FAQ Section */}
+            {/* FAQ Section (Blanc) */}
             <FAQSection />
 
-            {/* Documents à apporter */}
+            {/* Documents à apporter (Gris) */}
             <Documents />
 
-            {/* Déroulement du contrôle */}
+            {/* Déroulement du contrôle (Blanc) */}
             <ControlProgress />
 
-            {/* Points de contrôle */}
+            {/* Points de contrôle (Bleu) */}
             <ControlPointsSection />
-
-            {/* CTA Section */}
-            <CTASection />
         </main>
     );
 }

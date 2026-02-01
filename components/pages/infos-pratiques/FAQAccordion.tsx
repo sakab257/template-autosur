@@ -35,22 +35,39 @@ export default function FAQAccordion() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
-        <div className="space-y-3">
+        <div className="space-y-4">
             {faqItems.map((item, index) => (
-                <div
+                <motion.div
                     key={index}
-                    className="bg-white rounded-xl border border-slate-200 overflow-hidden"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className={`bg-white rounded-2xl border transition-colors duration-300 ${
+                        openIndex === index 
+                        ? "border-blue-200 shadow-md" 
+                        : "border-slate-100 shadow-sm hover:border-blue-100"
+                    }`}
                 >
                     <button
                         onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                        className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition-colors"
+                        className="w-full flex items-center justify-between p-6 text-left"
                     >
-                        <span className="font-semibold text-slate-900 pr-4">{item.question}</span>
-                        <ChevronDown
-                            className={`w-5 h-5 text-blue-600 shrink-0 transition-transform duration-300 ${
-                                openIndex === index ? "rotate-180" : ""
-                            }`}
-                        />
+                        <span className={`font-bold text-lg pr-4 transition-colors ${
+                            openIndex === index ? "text-blue-700" : "text-slate-800"
+                        }`}>
+                            {item.question}
+                        </span>
+                        <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                            openIndex === index ? "bg-blue-100 text-blue-600" : "bg-slate-50 text-slate-400"
+                        }`}>
+                            <ChevronDown
+                                size={20}
+                                className={`transition-transform duration-300 ${
+                                    openIndex === index ? "rotate-180" : ""
+                                }`}
+                            />
+                        </div>
                     </button>
                     <AnimatePresence>
                         {openIndex === index && (
@@ -58,16 +75,16 @@ export default function FAQAccordion() {
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: "auto", opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
                                 className="overflow-hidden"
                             >
-                                <p className="px-5 pb-5 text-slate-600 leading-relaxed">
+                                <p className="px-6 pb-6 text-slate-600 leading-relaxed">
                                     {item.answer}
                                 </p>
                             </motion.div>
                         )}
                     </AnimatePresence>
-                </div>
+                </motion.div>
             ))}
         </div>
     );

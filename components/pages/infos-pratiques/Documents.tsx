@@ -1,41 +1,66 @@
-import ChecklistCard from "@/components/pages/infos-pratiques/ChecklistCard";
+// components/pages/infos-pratiques/Documents.tsx
+import ChecklistCard from "./ChecklistCard";
 import { ClipboardList } from "lucide-react";
+import SeparationWave from '@/components/ui/SeparationWave'
+import DotPattern from '@/components/ui/DotPattern'
 
 const Documents = () => {
   return (
-    <section className="py-20 lg:py-28 bg-slate-50">
-                <div className="container mx-auto px-6 lg:px-16">
-                    <div className="flex items-center gap-3 mb-8">
-                        <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                            <ClipboardList className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <h2 className="text-3xl lg:text-4xl font-black text-slate-900">
-                            Documents à apporter
-                        </h2>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <ChecklistCard
-                            title="Documents obligatoires"
-                            items={[
-                                "Carte grise du véhicule (original)",
-                                "Ancien procès-verbal de contrôle technique (si renouvellement)",
-                                "Justificatif d'identité du présentateur",
-                            ]}
-                            delay={0}
-                        />
-                        <ChecklistCard
-                            title="Recommandations"
-                            items={[
-                                "Carnet d'entretien du véhicule",
-                                "Attestation d'assurance valide",
-                                "Clé de roue de secours (si applicable)",
-                                "Manuel du véhicule (pour les témoins lumineux)",
-                            ]}
-                            delay={0.1}
-                        />
-                    </div>
+    // On utilise bg-blue-600 pour la cohérence avec les autres sections bleues
+    <section className="relative py-24 lg:py-32 bg-blue-500 overflow-hidden">
+        
+        <DotPattern />
+
+        <SeparationWave 
+            position="top" 
+            fillColor="fill-white" 
+        />
+
+        <div className="container mx-auto px-6 lg:px-16 relative z-10">
+            {/* En-tête de section */}
+            <div className="text-center mb-16">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white shadow-lg text-blue-600 mb-6">
+                    <ClipboardList size={32} strokeWidth={2.5} />
                 </div>
-            </section>
+                <h2 className="text-3xl lg:text-4xl font-black text-white mb-4">
+                    Préparez vos documents
+                </h2>
+                <p className="text-blue-100 max-w-2xl mx-auto text-lg font-medium">
+                    Pour un accueil fluide, assurez-vous d'avoir les éléments suivants <br />
+                    le jour J.
+                </p>
+            </div>
+
+            {/* Grille des cartes */}
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <ChecklistCard
+                    title="Documents Obligatoires"
+                    items={[
+                        "Carte grise du véhicule (originale)",
+                        "Ancien procès-verbal (si contre-visite)",
+                        "Justificatif d'identité",
+                        "Notice descriptive (si véhicule modifié)"
+                    ]}
+                    delay={0}
+                />
+                <ChecklistCard
+                    title="Recommandations"
+                    items={[
+                        "Carnet d'entretien du véhicule",
+                        "Attestation d'assurance valide",
+                        "Écrou antivol des roues (si présent)",
+                        "Manuel du véhicule (témoins tableau de bord)"
+                    ]}
+                    delay={0.1}
+                />
+            </div>
+        </div>
+        <SeparationWave 
+            position="bottom" 
+            fillColor="fill-white" 
+            flip
+        />
+    </section>
   )
 }
 

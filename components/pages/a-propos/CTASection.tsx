@@ -1,23 +1,14 @@
 import { ArrowRight, CalendarCheck } from "lucide-react"
 import Link from "next/link"
 import SeparationWave from '@/components/ui/SeparationWave'
+import DotPattern from '@/components/ui/DotPattern'
 
 const CTASection = () => {
   return (
     <section className="relative py-24 lg:py-32 bg-blue-500 overflow-hidden">
         <SeparationWave position="top" fillColor="fill-white" height="h-16 lg:h-24" />
 
-        {/* Pattern de fond */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none lg:translate-y-2">
-            <svg width="100%" height="100%">
-                <defs>
-                    <pattern id="cta-dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                        <circle cx="2" cy="2" r="2" fill="white" />
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#cta-dot-pattern)" />
-            </svg>
-        </div>
+        <DotPattern opacity="opacity-10" className="lg:translate-y-2" />
 
         <div className="container mx-auto px-6 lg:px-16 text-center relative z-20">
             <h2 className="text-3xl lg:text-5xl font-black text-white mb-6">

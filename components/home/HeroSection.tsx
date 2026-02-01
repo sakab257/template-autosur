@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ShieldCheck, ArrowRight, Star } from "lucide-react";
 import HeroAnimation from "@/components/home/HeroAnimation";
 import SeparationWave from '@/components/ui/SeparationWave';
+import DotPattern from '@/components/ui/DotPattern';
 
 export default function HeroSection() {
   return (
@@ -9,40 +10,7 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-[calc(100vh-5rem)] lg:h-[calc(100vh-6rem)] w-full overflow-hidden bg-linear-to-br from-white via-blue-50 to-blue-500 flex items-center py-12 lg:py-0 scroll-mt-20 lg:scroll-mt-24"
     >
-      {/* Pattern de points avec double fondu (Haut et Bas) */}
-<div className="absolute inset-0 opacity-20">
-    <svg width="100%" height="100%">
-        <defs>
-            {/* 1. Le pattern de points (inchangé) */}
-            <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                <circle cx="2" cy="2" r="2" fill="white" />
-            </pattern>
-
-            {/* 2. Le dégradé "Sandwich" : Transparent -> Visible -> Transparent */}
-            <linearGradient id="fade-both-ways" x1="0%" y1="0%" x2="0%" y2="100%">
-                {/* 0% (Tout en haut) : Invisible */}
-                <stop offset="0%" stopColor="black" />
-                
-                {/* 15% : Le fondu d'entrée est terminé, les points sont visibles */}
-                <stop offset="15%" stopColor="white" />
-                
-                {/* 85% : Les points sont toujours visibles, le fondu de sortie commence */}
-                <stop offset="85%" stopColor="white" />
-                
-                {/* 100% (Tout en bas) : Invisible */}
-                <stop offset="100%" stopColor="black" />
-            </linearGradient>
-
-            {/* 3. Le masque qui applique ce dégradé */}
-            <mask id="dual-mask" maskContentUnits="objectBoundingBox">
-                <rect x="0" y="0" width="1" height="1" fill="url(#fade-both-ways)" />
-            </mask>
-        </defs>
-
-        {/* 4. Application du masque */}
-        <rect width="100%" height="100%" fill="url(#dot-pattern)" mask="url(#dual-mask)" />
-    </svg>
-</div>
+      <DotPattern />
       <SeparationWave position="bottom" fillColor="fill-white" flip height="h-20 lg:h-25" />
       <div className="container mx-auto px-6 lg:px-12 h-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 h-full items-center">

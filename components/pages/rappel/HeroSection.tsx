@@ -3,22 +3,13 @@
 import { motion } from 'framer-motion';
 import CTCalculator from "./CTCalculator";
 import SeparationWave from '@/components/ui/SeparationWave';
+import DotPattern from '@/components/ui/DotPattern';
 
 const HeroSection = () => {
   return (
     <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 bg-blue-500 overflow-hidden">
         
-        {/* --- BACKGROUND PATTERN --- */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-            <svg width="100%" height="100%">
-                    <defs>
-                        <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                            <circle cx="2" cy="2" r="2" fill="white" />
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#dot-pattern)" />
-                </svg>
-        </div>
+        <DotPattern />
 
         <SeparationWave position="bottom" fillColor="fill-white" flip height="h-16 lg:h-24" />
 
