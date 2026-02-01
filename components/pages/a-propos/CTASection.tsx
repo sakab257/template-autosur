@@ -8,7 +8,7 @@ const CTASection = () => {
     <section className="relative py-24 lg:py-32 bg-blue-500 overflow-hidden">
         <SeparationWave position="top" fillColor="fill-white" height="h-16 lg:h-24" />
 
-        <DotPattern opacity="opacity-10" className="lg:translate-y-2" />
+        <DotPattern className="lg:translate-y-2" />
 
         <div className="container mx-auto px-6 lg:px-16 text-center relative z-20">
             <h2 className="text-3xl lg:text-5xl font-black text-white mb-6">
