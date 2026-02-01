@@ -5,17 +5,17 @@ import WhyJoinUsSection from "@/components/pages/recrutement/WhyJoinUsSection";
 
 export default function RecrutementPage() {
     return (
-        <main className="w-full bg-slate-50">
-            {/* Hero Section */}
+        <main className="w-full">
+            {/* Hero Section (Bleu) */}
             <HeroSection />
 
-            {/* Pourquoi nous rejoindre */}
+            {/* Pourquoi nous rejoindre (Blanc) */}
             <WhyJoinUsSection />
 
-            {/* Nos métiers */}
+            {/* Nos métiers (Bleu) */}
             <OurWorkSection />
 
-            {/* Formulaire de candidature */}
+            {/* Formulaire de candidature (Blanc) */}
             <ApplicationSection />
         </main>
     );

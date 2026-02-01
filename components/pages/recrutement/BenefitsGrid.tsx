@@ -48,13 +48,13 @@ export default function BenefitsGrid() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         viewport={{ once: true }}
-                        className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-100 transition-colors"
+                        className="bg-white rounded-2xl p-6 lg:p-8 border border-slate-100 shadow-md hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 group"
                     >
-                        <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
-                            <Icon className="w-6 h-6 text-blue-600" />
+                        <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mb-6 group-hover:border-blue-200 group-hover:bg-blue-50 transition-colors">
+                            <Icon className="w-7 h-7 text-blue-600" strokeWidth={2} />
                         </div>
-                        <h3 className="text-lg font-bold text-slate-900 mb-2">{benefit.title}</h3>
-                        <p className="text-slate-600 text-sm leading-relaxed">{benefit.description}</p>
+                        <h3 className="text-xl font-bold text-slate-900 mb-3">{benefit.title}</h3>
+                        <p className="text-slate-600 leading-relaxed">{benefit.description}</p>
                     </motion.div>
                 );
             })}

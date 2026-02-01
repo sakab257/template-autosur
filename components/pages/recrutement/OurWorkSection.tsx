@@ -1,4 +1,8 @@
-import { Briefcase, Wrench, UserCheck } from "lucide-react";
+'use client'
+
+import { Briefcase, Wrench, UserCheck, CheckCircle2 } from "lucide-react";
+import SeparationWave from '@/components/ui/SeparationWave'
+import DotPattern from '@/components/ui/DotPattern'
 
 const jobs = [
     {
@@ -17,53 +21,68 @@ const jobs = [
 
 const OurWorkSection = () => {
   return (
-    <section className="py-20 lg:py-28 bg-slate-50">
-                <div className="container mx-auto px-6 lg:px-16">
-                    <div className="flex items-center gap-3 mb-12">
-                        <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                            <Briefcase className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <h2 className="text-3xl lg:text-4xl font-black text-slate-900">
-                            Nos métiers
-                        </h2>
-                    </div>
+    <section className="relative py-24 lg:py-32 bg-blue-500 overflow-hidden">
+        
+        {/* Vague Haut (Blanc -> Bleu) */}
+        <SeparationWave position="top" fillColor="fill-white" className="-mt-px" />
+        
+        {/* Pattern */}
+        <DotPattern opacity="opacity-10" />
 
-                    <div className="grid lg:grid-cols-2 gap-8">
-                        {jobs.map((job, index) => {
-                            const Icon = job.icon;
-                            return (
-                                <div
-                                    key={index}
-                                    className="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-slate-100"
-                                >
-                                    <div className="flex items-center gap-4 mb-4">
-                                        <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center">
-                                            <Icon className="w-7 h-7 text-blue-600" />
-                                        </div>
-                                        <h3 className="text-2xl font-bold text-slate-900">{job.title}</h3>
-                                    </div>
-                                    <p className="text-slate-600 mb-6 leading-relaxed">
-                                        {job.description}
-                                    </p>
-                                    <div>
-                                        <p className="text-sm font-semibold text-slate-700 mb-3">
-                                            Profil recherché :
-                                        </p>
-                                        <ul className="space-y-2">
-                                            {job.requirements.map((req, i) => (
-                                                <li key={i} className="flex items-center gap-2 text-slate-600">
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                                                    {req}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
+        <div className="container mx-auto px-6 lg:px-16 relative z-10">
+            <div className="text-center mb-16">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-6">
+                    <Briefcase size={32} strokeWidth={2.5} />
                 </div>
-            </section>
+                <h2 className="text-3xl lg:text-4xl font-black text-white mb-4">
+                    Nos métiers
+                </h2>
+                <p className="text-lg text-blue-100 max-w-2xl mx-auto">
+                    Découvrez les profils qui composent notre force au quotidien.
+                </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {jobs.map((job, index) => {
+                    const Icon = job.icon;
+                    return (
+                        <div
+                            key={index}
+                            className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:bg-white/20 transition-all duration-300"
+                        >
+                            <div className="flex items-center gap-5 mb-6">
+                                <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-blue-600 shadow-md">
+                                    <Icon className="w-7 h-7" strokeWidth={2.5} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white">{job.title}</h3>
+                            </div>
+                            
+                            <p className="text-blue-50 mb-8 leading-relaxed">
+                                {job.description}
+                            </p>
+                            
+                            <div className="bg-blue-900/30 rounded-xl p-5 border border-blue-400/30">
+                                <p className="text-sm font-bold text-blue-200 uppercase tracking-wider mb-4">
+                                    Profil recherché
+                                </p>
+                                <ul className="space-y-3">
+                                    {job.requirements.map((req, i) => (
+                                        <li key={i} className="flex items-start gap-3 text-white font-medium">
+                                            <CheckCircle2 className="w-5 h-5 text-blue-300 shrink-0" />
+                                            {req}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+
+        {/* Vague Bas (Bleu -> Blanc) */}
+        <SeparationWave position="bottom" flip fillColor="fill-white" />
+    </section>
   )
 }
 
