@@ -1,8 +1,16 @@
+import type { Metadata } from "next";
 import MapEmbed from "@/components/pages/acces/MapEmbed";
 import HeroSection from "@/components/pages/acces/HeroSection";
 import ScheduleSection from "@/components/pages/acces/ScheduleSection";
 import ContactSection from "@/components/pages/acces/ContactSection";
 import CTASection from "@/components/pages/acces/CTASection";
+
+export const metadata: Metadata = {
+  title: "Accès & Plan - Comment venir au centre",
+  description:
+    "Retrouvez l'adresse, le plan d'accès, les horaires d'ouverture et les coordonnées du centre de contrôle technique Autosur à Paris. Venez facilement en voiture ou en transport.",
+  alternates: { canonical: "/acces" },
+};
 
 export default function AccesPage() {
     return (

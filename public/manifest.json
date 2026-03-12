@@ -1,0 +1,22 @@
+{
+  "name": "Autosur - Contrôle Technique",
+  "short_name": "Autosur",
+  "description": "Centre de contrôle technique automobile agréé à Paris",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}

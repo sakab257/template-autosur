@@ -42,7 +42,7 @@ const Footer = () => {
                                 <p className="flex items-center gap-3">
                                     <Mail className="w-5 h-5 text-blue-900" strokeWidth={2} />
                                     <a href="mailto:contact@autosur.fr" className="hover:text-blue-900 transition-colors">
-                                        contact@contact.fr
+                                        contact@autosur.fr
                                     </a>
                                 </p>
                             </div>
